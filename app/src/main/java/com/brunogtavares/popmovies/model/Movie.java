@@ -9,9 +9,9 @@ public class Movie {
     private String poster;
     private String synopsis;
     private double rating;
-    private long releaseDate;
+    private String releaseDate;
 
-    public Movie( String originalTitle, String posterImage, String overview, double voteAverage, long relesaseDate ) {
+    public Movie( String originalTitle, String posterImage, String overview, double voteAverage, String relesaseDate ) {
         this.title = originalTitle;
         this.poster = posterImage;
         this.synopsis = overview;
@@ -52,11 +52,11 @@ public class Movie {
         this.rating = rating;
     }
 
-    public long getReleaseDate() {
+    public String getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(long releaseDate) {
+    public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
 }
