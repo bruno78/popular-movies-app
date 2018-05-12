@@ -1,7 +1,10 @@
 package com.brunogtavares.popmovies.utils;
 
+import android.content.res.AssetManager;
+import android.content.res.Resources;
 import android.util.Log;
 
+import com.brunogtavares.popmovies.R;
 import com.brunogtavares.popmovies.model.Movie;
 
 import org.json.JSONArray;
@@ -9,11 +12,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Scanner;
 
 /**
  * Created by brunogtavares on 5/10/18.
@@ -31,13 +40,12 @@ public class ThemoviedbApiUtils {
     private ThemoviedbApiUtils() {
     }
 
-    public static ArrayList<Movie> extractMovies() {
+    public static ArrayList<Movie> extractMovies(JSONObject moviesObject) {
 
         ArrayList<Movie> movies = new ArrayList<>();
 
         try {
 
-            JSONObject moviesObject = extractJson();
             JSONArray results = moviesObject.getJSONArray("results");
 
             for (int i = 0; i < results.length(); i++) {
@@ -45,7 +53,7 @@ public class ThemoviedbApiUtils {
                 JSONObject movieJson = results.getJSONObject(i);
 
                 String title = movieJson.getString("original_title");
-                String posterPath = movieJson.getString("poster_path");
+                String posterPath = buildPosterPath(movieJson.getString("poster_path"));
                 String synopsis = movieJson.getString("overview");
                 double rating = movieJson.getDouble("vote_average");
                 String releaseDate = movieJson.getString("release_date");
@@ -54,41 +62,14 @@ public class ThemoviedbApiUtils {
 
             }
 
-        } catch (FileNotFoundException e) {
-            Log.e(LOG_TAG, "Error handling file", e);
-        } catch (JSONException e) {
+        }  catch (JSONException e) {
             Log.e(LOG_TAG, "Error handling JSON file", e);
         }
 
         return movies;
     }
-    /**
-     * This is a helper temporary method just to handle mock data
-     * @return JSON object
-     * @throws FileNotFoundException
-     * @throws JSONException
-     */
-    private static JSONObject extractJson() throws FileNotFoundException, JSONException {
-        File file = new File("./moviesDataMock.json");
-        StringBuilder text = new StringBuilder();
-        BufferedReader br = null;
 
-        try {
-            br = new BufferedReader(new FileReader(file));
-            String line;
-
-            while((line = br.readLine()) != null) {
-                text.append(line);
-                text.append('\n');
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try { br.close(); } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        return new JSONObject(text.toString());
+    private static String buildPosterPath(String moviePath) {
+        return "http://image.tmdb.org/t/p/" + "W185" + moviePath;
     }
 }
