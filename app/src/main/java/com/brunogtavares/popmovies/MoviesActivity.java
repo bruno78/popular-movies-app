@@ -3,6 +3,7 @@ package com.brunogtavares.popmovies;
 import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.widget.GridView;
 
 import com.brunogtavares.popmovies.model.Movie;
@@ -24,7 +25,7 @@ public class MoviesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movies);
 
-        GridView gridView = (GridView) findViewById(R.id.gv_movie_grid);
+        RecyclerView gridView = (RecyclerView) findViewById(R.id.rv_movie_grid);
         ArrayList<Movie> movies = new ArrayList<>();
 
         try {
@@ -32,7 +33,11 @@ public class MoviesActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        movies.size();
+
+        if(movies.size() > 0) {
+            MovieAdapter movieAdapter = new MovieAdapter(this, movies);
+            gridView.setAdapter(movieAdapter);
+        }
     }
 
     private JSONObject getJSON() throws JSONException {
