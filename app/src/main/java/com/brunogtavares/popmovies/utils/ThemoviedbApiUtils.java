@@ -54,11 +54,12 @@ public class ThemoviedbApiUtils {
 
                 String title = movieJson.getString("original_title");
                 String posterPath = buildPosterPath(movieJson.getString("poster_path"));
+                String backDrop = buildPosterPath(movieJson.getString("back_drop"));
                 String synopsis = movieJson.getString("overview");
                 double rating = movieJson.getDouble("vote_average");
                 String releaseDate = movieJson.getString("release_date");
 
-                movies.add(new Movie(title, posterPath, synopsis, rating, releaseDate));
+                movies.add(new Movie(title, posterPath, backDrop, synopsis, rating, releaseDate));
 
             }
 

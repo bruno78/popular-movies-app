@@ -7,13 +7,15 @@ package com.brunogtavares.popmovies.model;
 public class Movie {
     private String title;
     private String poster;
+    private String backDrop;
     private String synopsis;
     private double rating;
     private String releaseDate;
 
-    public Movie( String originalTitle, String posterImage, String overview, double voteAverage, String relesaseDate ) {
+    public Movie( String originalTitle, String posterImage, String backDrop, String overview, double voteAverage, String relesaseDate ) {
         this.title = originalTitle;
         this.poster = posterImage;
+        this.backDrop = backDrop;
         this.synopsis = overview;
         this.rating = voteAverage;
         this.releaseDate = relesaseDate;
@@ -35,6 +37,10 @@ public class Movie {
     public void setPoster(String poster) {
         this.poster = poster;
     }
+
+    public String getBackDrop() { return backDrop; }
+
+    public void setBackDrop(String backDrop) { this.backDrop = backDrop; }
 
     public String getSynopsis() {
         return synopsis;
