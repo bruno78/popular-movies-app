@@ -1,6 +1,7 @@
 package com.brunogtavares.popmovies;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,11 +47,25 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
     }
 
     @Override
-    public void onBindViewHolder(MovieAdapterViewHolder holder, int position) {
+    public void onBindViewHolder(final MovieAdapterViewHolder holder, int position) {
+
+        // Get picture from API and and load into the viewHolder using Picasso
         String movieUrl = mMovies.get(position).getPoster();
         Picasso.with(mContext)
                 .load(movieUrl)
                 .into(holder.mMoviePoster);
+
+        // Set OnclickListener to the mMoviePoster
+        holder.mMoviePoster.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, MovieDetailActivity.class);
+                // Passing the image of the clicked movie poster to the detail activity
+                intent.putExtra("moviePoster", mMovies.get(holder.getAdapterPosition()).getPoster());
+                // Start the activity
+                mContext.startActivity(intent);
+            }
+        });
 
     }
 
@@ -59,39 +74,5 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
         if(mMovies == null) return 0;
         return mMovies.size();
     }
-
-
-
-//    @Override
-//    public int getCount() {
-//        return mMovies.size();
-//    }
-//
-//    @Override
-//    public Object getItem(int position) {
-//        return null;
-//    }
-//
-//    @Override
-//    public long getItemId(int position) {
-//        return 0;
-//    }
-//
-//    @Override
-//    public View getView(int position, View convertView, ViewGroup parent) {
-//        ImageView imageView;
-//
-//        if(convertView == null) {
-//            imageView = new ImageView(mContext);
-//
-//            Picasso.with(mContext)
-//                    .load(mMovies.get(position).getPoster())
-//                    .into(imageView);
-//        }
-//        else {
-//            imageView = (ImageView) convertView;
-//        }
-//        return imageView;
-//    }
 
 }

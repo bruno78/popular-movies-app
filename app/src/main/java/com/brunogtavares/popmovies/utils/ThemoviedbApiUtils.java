@@ -70,6 +70,8 @@ public class ThemoviedbApiUtils {
     }
 
     private static String buildPosterPath(String moviePath) {
-        return "http://image.tmdb.org/t/p/" + "W185" + moviePath;
+        // w185 for small devices
+        // w500 for tablet
+        return "http://image.tmdb.org/t/p/" + "w500/" + moviePath;
     }
 }

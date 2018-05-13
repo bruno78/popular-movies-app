@@ -3,7 +3,10 @@ package com.brunogtavares.popmovies;
 import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.widget.GridLayout;
 import android.widget.GridView;
 
 import com.brunogtavares.popmovies.model.Movie;
@@ -25,7 +28,6 @@ public class MoviesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movies);
 
-        RecyclerView gridView = (RecyclerView) findViewById(R.id.rv_movie_grid);
         ArrayList<Movie> movies = new ArrayList<>();
 
         try {
@@ -35,8 +37,14 @@ public class MoviesActivity extends AppCompatActivity {
         }
 
         if(movies.size() > 0) {
-            MovieAdapter movieAdapter = new MovieAdapter(this, movies);
-            gridView.setAdapter(movieAdapter);
+            Log.d("MoviesActivity", "Movies size: " + movies.size());
+
+            RecyclerView recyclerView = findViewById(R.id.rv_movie_grid);
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(MoviesActivity.this, 2);
+            recyclerView.setLayoutManager(gridLayoutManager);
+
+            MovieAdapter adapter = new MovieAdapter(MoviesActivity.this, movies);
+            recyclerView.setAdapter(adapter);
         }
     }
 
