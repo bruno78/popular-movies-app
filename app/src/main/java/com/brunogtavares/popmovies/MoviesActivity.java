@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.GridLayout;
 import android.widget.GridView;
+import android.widget.ProgressBar;
 
 import com.brunogtavares.popmovies.model.Movie;
 import com.brunogtavares.popmovies.utils.ThemoviedbApiUtils;
@@ -23,10 +25,18 @@ import java.util.ArrayList;
 
 public class MoviesActivity extends AppCompatActivity {
 
+    private MovieAdapter movieAdapter;
+    private RecyclerView mRecyclerView;
+
+    private ProgressBar mLoadingIndicator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movies);
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.rv_movie_grid);
+       // mLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loading_indicator);
 
         ArrayList<Movie> movies = new ArrayList<>();
 
@@ -39,13 +49,14 @@ public class MoviesActivity extends AppCompatActivity {
         if(movies.size() > 0) {
             Log.d("MoviesActivity", "Movies size: " + movies.size());
 
-            RecyclerView recyclerView = findViewById(R.id.rv_movie_grid);
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(MoviesActivity.this, 2);
-            recyclerView.setLayoutManager(gridLayoutManager);
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+            mRecyclerView.setLayoutManager(gridLayoutManager);
+            mRecyclerView.setHasFixedSize(true);
 
-            MovieAdapter adapter = new MovieAdapter(MoviesActivity.this, movies);
-            recyclerView.setAdapter(adapter);
+            MovieAdapter movieAdapter = new MovieAdapter(this, movies);
+            mRecyclerView.setAdapter(movieAdapter);
         }
+
     }
 
     private JSONObject getJSON() throws JSONException {
