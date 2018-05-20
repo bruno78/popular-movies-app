@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,9 +36,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public class MovieViewHolder extends RecyclerView.ViewHolder {
         public ImageView mMovieImageView;
 
-        public MovieViewHolder(View view) {
-            super(view);
-            mMovieImageView = (ImageView) view.findViewById(R.id.iv_movie_poster);
+        public MovieViewHolder(View itemView) {
+            super(itemView);
+            mMovieImageView = (ImageView) itemView.findViewById(R.id.iv_movie_poster);
         }
     }
 
@@ -53,6 +54,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public void onBindViewHolder(MovieViewHolder holder, int position) {
         Movie movie = mMovieList.get(position);
 
+        Log.d(LOG_TAG, "We are here: # " + position + "\n" +
+            movie.getPoster() + "\n" +
+            movie.toString());
+
+
         Picasso.with(mContext)
                 .load(movie.getPoster())
                 .into(holder.mMovieImageView);
@@ -63,30 +69,4 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         if(mMovieList.isEmpty() || mMovieList == null) return 0;
         return mMovieList.size();
     }
-
-
-
-//    @Override
-//    public View getView(int position, View convertView, ViewGroup parent) {
-//
-//        // Check if the existing view is being reused, otherwise inflate the view
-//        View listItemView = convertView;
-//        if(listItemView == null) {
-//            listItemView = LayoutInflater.from(getContext()).inflate(
-//                    R.layout.movie_list_item, parent, false );
-//        }
-//
-//        // Get the Movie object located at this position in the list
-//        Movie currentMovieItem = getItem(position);
-//
-//        // Find the ImageView in the movie_list_item.xml
-//        ImageView moviePosterImageView = (ImageView) listItemView.findViewById(R.id.iv_movie_poster);
-//
-//        // Load the image into Image view
-//        Picasso.with(mContext)
-//                .load(currentMovieItem.getPoster())
-//                .into(moviePosterImageView);
-//
-//        return listItemView;
-//    }
 }
