@@ -135,7 +135,6 @@ public class MoviesActivity extends AppCompatActivity
         if(!movies.isEmpty() && movies != null) {
             Log.i(LOG_TAG, String.valueOf(movies.size()));
             mMovieAdapter = new MovieAdapter(this, movies);
-            mMovieAdapter.notifyDataSetChanged();
         }
 
     }
