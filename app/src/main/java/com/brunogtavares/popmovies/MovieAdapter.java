@@ -22,19 +22,33 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     private static final String LOG_TAG = MovieAdapter.class.getSimpleName();
 
     private List<Movie> mMovieList;
-    private final Context mContext;
+    private Context mContext;
+    private final MovieAdapterOnClickHandler mClickHandler;
 
-    public MovieAdapter(Context context, List<Movie> movieList) {
-        this.mMovieList = movieList;
-        this.mContext = context;
+    public interface MovieAdapterOnClickHandler {
+        void onClick(Movie movie);
     }
 
-    public class MovieViewHolder extends RecyclerView.ViewHolder {
+
+    public MovieAdapter(MovieAdapterOnClickHandler clickHandler) {
+        this.mClickHandler = clickHandler;
+    }
+
+    public class MovieViewHolder extends RecyclerView.ViewHolder
+        implements View.OnClickListener {
+
         public ImageView mMovieImageView;
 
         public MovieViewHolder(View itemView) {
             super(itemView);
             mMovieImageView = (ImageView) itemView.findViewById(R.id.iv_movie_poster);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            mClickHandler.onClick(mMovieList.get(position));
         }
     }
 
@@ -54,7 +68,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             movie.getPosterPath() + "\n" +
             movie.toString());
 
-
         Picasso.with(mContext)
                 .load(movie.getPosterPath())
                 .into(holder.mMovieImageView);
@@ -64,5 +77,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public int getItemCount() {
         if(mMovieList.isEmpty() || mMovieList == null) return 0;
         return mMovieList.size();
+    }
+
+    public void setMovieList(List<Movie> movieList) {
+        this.mMovieList = movieList;
+        notifyDataSetChanged();
+    }
+
+    public void setContext(Context context) {
+        this.mContext = context;
     }
 }

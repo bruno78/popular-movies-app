@@ -77,6 +77,19 @@ public class Movie implements Parcelable {
         this.releaseDate = releaseDate;
     }
 
+    @Override
+    public String toString() {
+        return "{" + "\n" +
+                "id: " + getMovieId() + "\n" +
+                "title: " + getTitle() + "\n" +
+                "poster path: " + getPosterPath() + "\n" +
+                "backdrop path: " + getBackDropPath() + "\n" +
+                "synopsis: " + getSynopsis() + "\n" +
+                "average rating: " + getRating() + "\n" +
+                "release date: " + getReleaseDate() + "\n" +
+                "}";
+    }
+
 
     public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
         @Override
