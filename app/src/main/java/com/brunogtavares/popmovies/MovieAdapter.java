@@ -1,15 +1,11 @@
 package com.brunogtavares.popmovies;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
 import com.brunogtavares.popmovies.model.Movie;
@@ -55,12 +51,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         Movie movie = mMovieList.get(position);
 
         Log.d(LOG_TAG, "We are here: # " + position + "\n" +
-            movie.getPoster() + "\n" +
+            movie.getPosterPath() + "\n" +
             movie.toString());
 
 
         Picasso.with(mContext)
-                .load(movie.getPoster())
+                .load(movie.getPosterPath())
                 .into(holder.mMovieImageView);
     }
 
