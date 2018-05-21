@@ -1,15 +1,11 @@
 package com.brunogtavares.popmovies;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
 import com.brunogtavares.popmovies.model.Movie;
@@ -27,20 +23,24 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     private static final String LOG_TAG = MovieAdapter.class.getSimpleName();
 
     private List<Movie> mMovieList;
-    private final Context mContext;
-    private final ListItemClickListener mOnclickListener;
+    private Context mContext;
+    private final MovieAdapterOnClickHandler mClickHandler;
 
-    public interface ListItemClickListener {
-        void onListItemClick(Movie movieItem);
+    public interface MovieAdapterOnClickHandler {
+        void onClick(Movie movie);
     }
 
-    public MovieAdapter(Context context, List<Movie> movieList)  {
-        this.mMovieList = movieList;
-        this.mContext = context;
+
+    public MovieAdapter(MovieAdapterOnClickHandler clickHandler) {
+        this.mClickHandler = clickHandler;
+>>>>>>> b539fb1c48b88a66843692e18a3dd62d6c1a99ab
     }
 
     public class MovieViewHolder extends RecyclerView.ViewHolder
         implements View.OnClickListener {
+
+
+>>>>>>> b539fb1c48b88a66843692e18a3dd62d6c1a99ab
         public ImageView mMovieImageView;
 
         public MovieViewHolder(View itemView) {
@@ -49,11 +49,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             itemView.setOnClickListener(this);
         }
 
-
         @Override
-        public void onClick(View view) {
+        public void onClick(View v) {
             int position = getAdapterPosition();
-            // mOnclickListener.onListItemClick(mMovieList.get(position));
+            mClickHandler.onClick(mMovieList.get(position));
+>>>>>>> b539fb1c48b88a66843692e18a3dd62d6c1a99ab
         }
     }
 
@@ -70,12 +70,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         Movie movie = mMovieList.get(position);
 
         Log.d(LOG_TAG, "We are here: # " + position + "\n" +
-            movie.getPoster() + "\n" +
+            movie.getPosterPath() + "\n" +
             movie.toString());
 
-
         Picasso.with(mContext)
-                .load(movie.getPoster())
+                .load(movie.getPosterPath())
                 .into(holder.mMovieImageView);
     }
 
@@ -83,5 +82,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public int getItemCount() {
         if(mMovieList.isEmpty() || mMovieList == null) return 0;
         return mMovieList.size();
+    }
+
+    public void setMovieList(List<Movie> movieList) {
+        this.mMovieList = movieList;
+        notifyDataSetChanged();
+    }
+
+    public void setContext(Context context) {
+        this.mContext = context;
     }
 }

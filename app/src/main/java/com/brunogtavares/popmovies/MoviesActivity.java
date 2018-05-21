@@ -3,7 +3,6 @@ package com.brunogtavares.popmovies;
 import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Loader;
-import android.content.res.AssetManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -12,28 +11,17 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
-import android.widget.GridLayout;
-import android.widget.GridView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.brunogtavares.popmovies.model.Movie;
-import com.brunogtavares.popmovies.utils.ThemoviedbApiUtils;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MoviesActivity extends AppCompatActivity
-    implements LoaderManager.LoaderCallbacks<List<Movie>>{
+    implements LoaderManager.LoaderCallbacks<List<Movie>>, MovieAdapter.MovieAdapterOnClickHandler {
 
     private static final String LOG_TAG = MoviesActivity.class.getName();
     private static final String MOVIES_REQUEST_URL = "https://api.themoviedb.org/3/discover/movie";
@@ -65,8 +53,9 @@ public class MoviesActivity extends AppCompatActivity
         mRecyclerView.setHasFixedSize(true);
 
         // Create a new adapter that takes an empty list of movies as input
-        mMovieAdapter = new MovieAdapter(this, new ArrayList<Movie>());
-
+        mMovieAdapter = new MovieAdapter((MovieAdapter.MovieAdapterOnClickHandler) this);
+        mMovieAdapter.setContext(getApplicationContext());
+        mMovieAdapter.setMovieList(new ArrayList<Movie>());
         // Set the adapter on the RecyclerView
         // so the list can be populated in the user interface
         mRecyclerView.setAdapter(mMovieAdapter);
@@ -76,6 +65,12 @@ public class MoviesActivity extends AppCompatActivity
 
         populateMovieList();
 
+    }
+
+    @Override
+    public void onClick(Movie movie) {
+        Context context = this;
+        Toast.makeText(context, movie.toString(), Toast.LENGTH_SHORT).show();
     }
 
     private boolean checkForNetworkStatus() {
@@ -103,7 +98,8 @@ public class MoviesActivity extends AppCompatActivity
 
     private void resetAdapter() {
         // Create a new adapter with an empty movie list
-        mMovieAdapter = new MovieAdapter(this, new ArrayList<Movie>());
+        mMovieAdapter.setMovieList(new ArrayList<Movie>());
+        mRecyclerView.setAdapter(mMovieAdapter);
     }
 
     @Override
@@ -134,8 +130,13 @@ public class MoviesActivity extends AppCompatActivity
         // If movies is not empty or null populate the adapter
         if(!movies.isEmpty() && movies != null) {
             Log.i(LOG_TAG, String.valueOf(movies.size()));
+<<<<<<< HEAD
             mMovieAdapter = new MovieAdapter(this, movies);
             notify();
+=======
+            mMovieAdapter.setMovieList(movies);
+            mRecyclerView.setAdapter(mMovieAdapter);
+>>>>>>> b539fb1c48b88a66843692e18a3dd62d6c1a99ab
         }
 
     }

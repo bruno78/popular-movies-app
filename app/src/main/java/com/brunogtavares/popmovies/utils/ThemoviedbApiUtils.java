@@ -139,14 +139,15 @@ public class ThemoviedbApiUtils {
 
                 JSONObject movieJson = results.getJSONObject(i);
 
+                int id = movieJson.getInt("id");
                 String title = movieJson.getString("original_title");
-                String posterPath = buildPosterPath(movieJson.getString("poster_path"));
-                String backDrop = buildPosterPath(movieJson.getString("backdrop_path"));
+                String posterPath = buildImagePath(movieJson.getString("poster_path"));
+                String backDropPath = buildImagePath(movieJson.getString("backdrop_path"));
                 String synopsis = movieJson.getString("overview");
                 double rating = movieJson.getDouble("vote_average");
                 String releaseDate = movieJson.getString("release_date");
 
-                movies.add(new Movie(title, posterPath, backDrop, synopsis, rating, releaseDate));
+                movies.add(new Movie(id, title, posterPath, backDropPath, synopsis, rating, releaseDate));
 
             }
 
@@ -157,7 +158,7 @@ public class ThemoviedbApiUtils {
         return movies;
     }
 
-    private static String buildPosterPath(String moviePath) {
+    private static String buildImagePath(String moviePath) {
         // w185 for small devices
         // w500 for tablet
         return "http://image.tmdb.org/t/p/" + "w500/" + moviePath;
