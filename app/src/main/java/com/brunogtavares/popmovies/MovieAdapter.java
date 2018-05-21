@@ -33,14 +33,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     public MovieAdapter(MovieAdapterOnClickHandler clickHandler) {
         this.mClickHandler = clickHandler;
->>>>>>> b539fb1c48b88a66843692e18a3dd62d6c1a99ab
     }
 
     public class MovieViewHolder extends RecyclerView.ViewHolder
         implements View.OnClickListener {
 
 
->>>>>>> b539fb1c48b88a66843692e18a3dd62d6c1a99ab
         public ImageView mMovieImageView;
 
         public MovieViewHolder(View itemView) {
@@ -53,7 +51,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         public void onClick(View v) {
             int position = getAdapterPosition();
             mClickHandler.onClick(mMovieList.get(position));
->>>>>>> b539fb1c48b88a66843692e18a3dd62d6c1a99ab
         }
     }
 
