@@ -20,6 +20,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".MovieDetailActivity"></activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/settings_title">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.brunogtavares.popmovies.MoviesActivity"/>
+        </activity>
     </application>
 
 </manifest>

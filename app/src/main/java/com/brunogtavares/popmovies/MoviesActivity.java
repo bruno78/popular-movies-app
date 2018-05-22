@@ -4,9 +4,14 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.preference.ListPreference;
+import android.preference.Preference;
+import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -30,7 +35,7 @@ public class MoviesActivity extends AppCompatActivity
 
     private static final String LOG_TAG = MoviesActivity.class.getName();
     private static final String MOVIE_BUNDLE_KEY = "MOVIE_KEY";
-    private static final String MOVIES_REQUEST_URL = "https://api.themoviedb.org/3/discover/movie";
+    private static final String MOVIES_REQUEST_URL = "https://api.themoviedb.org/3/movie/";
     private static final int MOVIE_LOADER_ID = 1;
 
     private RecyclerView mRecyclerView;
@@ -38,6 +43,7 @@ public class MoviesActivity extends AppCompatActivity
     private TextView mErrorMessageDisplay;
     private ProgressBar mLoadingIndicator;
 
+    private Spinner mSpinner;
 
     private boolean isConnected;
 
@@ -46,6 +52,7 @@ public class MoviesActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movies);
+
 
         // Find the reference to the ListView in the layout
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_movie_list);
@@ -76,11 +83,18 @@ public class MoviesActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
 
-        MenuItem item = menu.findItem(R.id.sp_menu_order_by);
-        Spinner spinner = (Spinner) item.getActionView();
-
-        ArrayAdapter<>
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -119,20 +133,32 @@ public class MoviesActivity extends AppCompatActivity
         mRecyclerView.setAdapter(mMovieAdapter);
     }
 
-    @Override
-    public Loader<List<Movie>> onCreateLoader(int i, Bundle bundle) {
+    private Uri.Builder createUri(String sort_by) {
 
         String apiKey = getString(R.string.movie_api_key);
 
         Uri baseUri = Uri.parse(MOVIES_REQUEST_URL);
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
+        uriBuilder.appendPath(sort_by);
         uriBuilder.appendQueryParameter("api_key", apiKey);
-        uriBuilder.appendQueryParameter("sort_by", "popularity.desc");
 
-        Log.i(LOG_TAG, uriBuilder.toString());
+        return uriBuilder;
+    }
 
-        return new MoviesLoader(this, uriBuilder.toString());
+    @Override
+    public Loader<List<Movie>> onCreateLoader(int i, Bundle bundle) {
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String orderBy = sharedPrefs.getString(
+                getString(R.string.settings_order_by_key),
+                getString(R.string.settings_order_by_default));
+
+        Uri.Builder  uri = createUri(orderBy);
+
+        Log.i(LOG_TAG, uri.toString());
+
+        return new MoviesLoader(this, uri.toString());
     }
 
     @Override
