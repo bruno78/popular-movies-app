@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.brunogtavares.popmovies.MovieDetailActivity">
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:id="@+id/sp_menu_order_by"
+        android:title="@string/order_by"
+        app:actionViewClass="android.widget.Spinner"
+        app:showAsAction="always" />
 </menu>
