@@ -2,6 +2,7 @@ package com.brunogtavares.popmovies;
 
 import android.app.LoaderManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -24,6 +25,7 @@ public class MoviesActivity extends AppCompatActivity
     implements LoaderManager.LoaderCallbacks<List<Movie>>, MovieAdapter.MovieAdapterOnClickHandler {
 
     private static final String LOG_TAG = MoviesActivity.class.getName();
+    private static final String MOVIE_BUNDLE_KEY = "MOVIE_KEY";
     private static final String MOVIES_REQUEST_URL = "https://api.themoviedb.org/3/discover/movie";
     private static final int MOVIE_LOADER_ID = 1;
 
@@ -69,8 +71,9 @@ public class MoviesActivity extends AppCompatActivity
 
     @Override
     public void onClick(Movie movie) {
-        Context context = this;
-        Toast.makeText(context, movie.toString(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, MovieDetailActivity.class);
+        intent.putExtra(MOVIE_BUNDLE_KEY, movie);
+        startActivity(intent);
     }
 
     private boolean checkForNetworkStatus() {
@@ -130,13 +133,8 @@ public class MoviesActivity extends AppCompatActivity
         // If movies is not empty or null populate the adapter
         if(!movies.isEmpty() && movies != null) {
             Log.i(LOG_TAG, String.valueOf(movies.size()));
-<<<<<<< HEAD
-            mMovieAdapter = new MovieAdapter(this, movies);
-            notify();
-=======
             mMovieAdapter.setMovieList(movies);
             mRecyclerView.setAdapter(mMovieAdapter);
->>>>>>> b539fb1c48b88a66843692e18a3dd62d6c1a99ab
         }
 
     }
