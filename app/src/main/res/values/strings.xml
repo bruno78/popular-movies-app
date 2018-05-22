@@ -4,4 +4,11 @@
     <string name="no_connection">No internet connection.</string>
     <string name="no_movies">No movies found</string>
     <string name="order_by">Order By</string>
+
+    <string name="spinner_title">Order By</string>
+    <string name="settings_order_by_most_popular_label">Most Popular</string>
+    <string name="settings_order_by_highest_rated_label">Highest Rated</string>
+    <string name="settings_order_by_most_popular_value">popular</string>
+    <string name="settings_order_by_highest_rated_value">rate</string>
+
 </resources>

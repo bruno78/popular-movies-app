@@ -13,6 +13,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
@@ -75,12 +76,25 @@ public class MoviesActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return true;
+    }
 
-        MenuItem item = menu.findItem(R.id.sp_menu_order_by);
-        Spinner spinner = (Spinner) item.getActionView();
-
-        ArrayAdapter<>
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_sort_by_highest_rated:
+                // Log.d(getString(R.string.settings_order_by_highest_rated_value));
+                return true;
+            case R.id.action_sort_by_most_popular:
+                //  Log.d(getString(R.string.action_status_message));
+                return true;
+            default:
+                // Do nothing
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
