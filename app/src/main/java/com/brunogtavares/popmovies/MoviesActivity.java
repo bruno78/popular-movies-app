@@ -43,8 +43,6 @@ public class MoviesActivity extends AppCompatActivity
     private TextView mErrorMessageDisplay;
     private ProgressBar mLoadingIndicator;
 
-    private Spinner mSpinner;
-
     private boolean isConnected;
 
 
@@ -66,9 +64,10 @@ public class MoviesActivity extends AppCompatActivity
         mRecyclerView.setHasFixedSize(true);
 
         // Create a new adapter that takes an empty list of movies as input
-        mMovieAdapter = new MovieAdapter((MovieAdapter.MovieAdapterOnClickHandler) this);
+        mMovieAdapter = new MovieAdapter( this);
         mMovieAdapter.setContext(getApplicationContext());
         mMovieAdapter.setMovieList(new ArrayList<Movie>());
+
         // Set the adapter on the RecyclerView
         // so the list can be populated in the user interface
         mRecyclerView.setAdapter(mMovieAdapter);

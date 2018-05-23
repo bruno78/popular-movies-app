@@ -89,4 +89,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public void setContext(Context context) {
         this.mContext = context;
     }
+
+    public void update(){
+        notifyDataSetChanged();
+    }
 }
