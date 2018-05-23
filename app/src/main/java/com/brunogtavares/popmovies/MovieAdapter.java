@@ -90,7 +90,4 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         this.mContext = context;
     }
 
-    public void update(){
-        notifyDataSetChanged();
-    }
 }

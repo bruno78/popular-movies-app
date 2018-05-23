@@ -14,12 +14,14 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -56,25 +58,28 @@ public class MoviesActivity extends AppCompatActivity
         // Find the reference to the ListView in the layout
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_movie_list);
 
-        // Find the reference to the Empty view layout
-        // mErrorMessageDisplay = (TextView) findViewById(R.id.tv_error_view);
+        // Find the reference to the Error view layout
+        mErrorMessageDisplay = findViewById(R.id.tv_empty_view);
 
         // Creating GridLayout to populate the movies as grid
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setNestedScrollingEnabled(false);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         // Create a new adapter that takes an empty list of movies as input
         mMovieAdapter = new MovieAdapter( this);
         mMovieAdapter.setContext(getApplicationContext());
         mMovieAdapter.setMovieList(new ArrayList<Movie>());
 
+
         // Set the adapter on the RecyclerView
         // so the list can be populated in the user interface
         mRecyclerView.setAdapter(mMovieAdapter);
 
         // Initialize the loading indicator
-        // mLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loading_indicator);
+        mLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loading_indicator);
 
         populateMovieList();
 
@@ -112,6 +117,7 @@ public class MoviesActivity extends AppCompatActivity
     }
 
     private void populateMovieList() {
+        View loadingIndicator = findViewById(R.id.pb_loading_indicator);
 
         // Before populating the list, check for the network status
         isConnected = checkForNetworkStatus();
@@ -121,8 +127,9 @@ public class MoviesActivity extends AppCompatActivity
             getLoaderManager().initLoader(MOVIE_LOADER_ID, null, this);
         }
         else {
-            // Update empty state with no connection message
-            // mEmptyStateTextView.setText(R.string.no_connection);
+            loadingIndicator.setVisibility(View.GONE);
+            // Update empty state with no connection error message
+            mErrorMessageDisplay.setText(R.string.no_connection);
         }
 
     }
@@ -164,8 +171,9 @@ public class MoviesActivity extends AppCompatActivity
     @Override
     public void onLoadFinished(Loader<List<Movie>> loader, List<Movie> movies) {
 
-        // Set empty state text to display "No movies found."
-        // mEmptyStateTextView.setText(R.string.no_movies);
+        // set the invisibility of the Progress bar to invisible
+        View loadingIndicator = findViewById(R.id.pb_loading_indicator);
+        loadingIndicator.setVisibility(View.GONE);
 
         // Clear the adapter from previous data
         resetAdapter();
@@ -175,6 +183,10 @@ public class MoviesActivity extends AppCompatActivity
             Log.i(LOG_TAG, String.valueOf(movies.size()));
             mMovieAdapter.setMovieList(movies);
             mRecyclerView.setAdapter(mMovieAdapter);
+        }
+        else {
+            // Set empty state text to display "No earthquakes found."
+            mErrorMessageDisplay.setText(R.string.no_movies);
         }
 
     }
