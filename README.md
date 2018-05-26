@@ -25,3 +25,26 @@ Your app will:
     * A plot synopsis (called overview in the api)
     * user rating (called vote_average in the api)
     * release date
+
+### Problems faced:
+
+1. When scroll down the list, it goes a bit slow but ok, but when goes up, it skips and jumps to the top. 
+
+*Solution:* Add these lines in the MoviesActivity:
+
+```java
+    recyclerView.setHasFixedSize(true);
+    recyclerView.setItemViewCacheSize(20);
+    recyclerView.setDrawingCacheEnabled(true);
+    recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+```
+
+and if you are using Picasso add these lines:
+
+```java
+    Picasso.with(context)
+            .load(file)
+            .fit()
+            // .resize().centerCrop() // this is optional in case needs improvement
+            .into(imageView);
+```

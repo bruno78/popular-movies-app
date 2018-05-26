@@ -65,8 +65,12 @@ public class MoviesActivity extends AppCompatActivity
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setNestedScrollingEnabled(false);
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        // This will help to cache the viewHolders
+        mRecyclerView.setItemViewCacheSize(20);
+        mRecyclerView.setDrawingCacheEnabled(true);
+        mRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+        // mRecyclerView.setNestedScrollingEnabled(false);
+        // mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         // Create a new adapter that takes an empty list of movies as input
         mMovieAdapter = new MovieAdapter( this);

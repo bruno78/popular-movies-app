@@ -71,6 +71,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             movie.toString());
 
         Picasso.with(mContext)
+                // .fit() // this will fit the picture in the viewer
+                // .resize().centerCrop()
                 .load(movie.getPosterPath())
                 .into(holder.mMovieImageView);
     }
