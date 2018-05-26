@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+activity_movies.xml
+
+    <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,6 +10,7 @@
         android:id="@+id/rv_movie_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
         tools:context="com.brunogtavares.popmovies.MoviesActivity" />
 
     <TextView
@@ -26,3 +29,14 @@
 
 </RelativeLayout>
 
+    activity_movie_detal.xml
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content">
+<ImageView
+    android:id="@+id/iv_movie_poster"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:adjustViewBounds="true" />
+</FrameLayout>
