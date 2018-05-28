@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 /**
  * Created by brunogtavares on 5/10/18.
+ * Using Parcelable for this model object so data can be passed across Activities and Fragments
  * Using Parcelable {@link: http://www.vogella.com/tutorials/AndroidParcelable/article.html}
  */
 

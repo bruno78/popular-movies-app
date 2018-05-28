@@ -10,6 +10,9 @@ import java.util.List;
 
 /**
  * Created by brunogtavares on 5/19/18.
+ *  Loaders handle asynchronous tasks, it will help restoring data on configuration changes, but also,
+ *  this avoids issues present in the AsyncTask like potential crashes when rotating the device
+ *  when the task is still running.
  */
 
 public class MoviesLoader extends AsyncTaskLoader<List<Movie>> {

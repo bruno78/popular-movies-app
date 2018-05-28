@@ -3,6 +3,7 @@
 
 <p align="center"><img src="https://cdn.rawgit.com/bruno78/popular-movies-app/5b33a0a7/screenshots/Screen%20Shot%202018-05-28%20at%2011.52.18%20AM.png" width="200" alt="movie list image"> <img src="https://cdn.rawgit.com/bruno78/popular-movies-app/5b33a0a7/screenshots/Screen%20Shot%202018-05-28%20at%2011.51.41%20AM.png" width="200" alt="Movie detail"></p>
 
+<p align="center"><img src="https://udacity-reviews-uploads.s3.us-west-2.amazonaws.com/_attachments/6093/1527535993/May-28-2018_14-29-44.gif" alt="gif of selecting different settings"></p>
 
 ## Project Summary
 
@@ -102,4 +103,44 @@ and if you are using Picasso and still have these issues, add the commented line
 
 **Solution:** make sure the FrameLayout that wraps the ImageView related to poster has the margin
 and padding set to 0.
+
+## Suggestions to improve the code
+
+**1. (/res/values/secrets.xml)** There is a nice approach when sharing your source code and don't want to include an API key or 
+any other private data. It is to use a buildConfig property, so other developers can include their 
+own key in the gradle.properties. This has some advantages like project won't build/run if a developer 
+has not set an API key value besides that you can handle different api keys during building time 
+depending on the build flavor like debug, release, etc
+   
+Here is a link to do this in a few easy steps:
+
+https://richardroseblog.wordpress.com/2016/05/29/hiding-secret-api-keys-from-git/
+
+**2. (MovieDetailActivity.java)** You might want to use ButterKnife library to reduce boilerplate code initializing the 
+views. You can easily bind these views using annotations provided by this library.
+   
+For example:
+   
+(code snippet gotten from the official Butterknife documentation)
+
+```java
+  class ExampleActivity extends Activity {
+     @BindView(R.id.title) TextView title;
+     @BindView(R.id.subtitle) TextView subtitle;
+     @BindView(R.id.footer) TextView footer;
+   
+     @Override public void onCreate(Bundle savedInstanceState) {
+       super.onCreate(savedInstanceState);
+       setContentView(R.layout.simple_activity);
+       ButterKnife.bind(this);
+       // TODO Use fields...
+     }
+   }
+
+```  
+
+Take a look at the official documentation of this library:
+
+http://jakewharton.github.io/butterknife/
+
 
