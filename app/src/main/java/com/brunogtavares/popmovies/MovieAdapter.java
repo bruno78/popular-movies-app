@@ -2,7 +2,6 @@ package com.brunogtavares.popmovies;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +42,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
         public MovieViewHolder(View itemView) {
             super(itemView);
-            mMovieImageView = (ImageView) itemView.findViewById(R.id.iv_movie_poster);
+            mMovieImageView = itemView.findViewById(R.id.iv_movie_poster);
             itemView.setOnClickListener(this);
         }
 

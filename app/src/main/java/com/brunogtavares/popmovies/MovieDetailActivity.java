@@ -23,13 +23,13 @@ public class MovieDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
 
-        Movie movie = (Movie) getIntent().getParcelableExtra(MOVIE_BUNDLE_KEY);
+        Movie movie = getIntent().getParcelableExtra(MOVIE_BUNDLE_KEY);
 
-        mBackdrop = (ImageView)  findViewById(R.id.iv_movie_backdrop);
-        mPosterThumbnail = (ImageView) findViewById(R.id.iv_movie_poster_thumbnail);
-        mMovieRating = (TextView) findViewById(R.id.tv_rating);
-        mDateReleased = (TextView) findViewById(R.id.tv_date_released);
-        mSinopsys = (TextView) findViewById(R.id.tv_synopsis);
+        mBackdrop = findViewById(R.id.iv_movie_backdrop);
+        mPosterThumbnail = findViewById(R.id.iv_movie_poster_thumbnail);
+        mMovieRating = findViewById(R.id.tv_rating);
+        mDateReleased = findViewById(R.id.tv_date_released);
+        mSinopsys = findViewById(R.id.tv_synopsis);
 
         setTitle(movie.getTitle());
         Picasso.with(this).load(movie.getBackDropPath()).into(mBackdrop);

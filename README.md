@@ -26,11 +26,44 @@ Your app will:
     * user rating (called vote_average in the api)
     * release date
 
+## Rubric
+
+### Common Project Requirements
+
+[x] App is written solely in the Java Programming Language.
+
+[x] Movies are displayed in the main layout via a grid of their corresponding movie poster thumbnails.
+
+[x] UI contains an element (i.e a spinner or settings menu) to toggle the sort order of the movies by: most popular, highest rated.
+
+[x] UI contains a screen for displaying the details for a selected movie.
+
+[x] Movie details layout contains title, release date, movie poster, vote average, and plot synopsis.
+
+[x] App utilizes stable release versions of all libraries, Gradle, and Android Studio.
+
+### User Interface - Function
+
+[x] When a user changes the sort criteria (“most popular and highest rated”) the main view gets updated correctly.
+
+[x] When a movie poster thumbnail is selected, the movie details screen is launched.
+
+### Network API Implementation
+
+[x] In a background thread, app queries the /movie/popular or /movie/top_rated API for the sort 
+criteria specified in the settings menu.
+
+### General Project Guidelines
+
+[x] App conforms to common standards found in the Android Nanodegree General Project Guidelines 
+(NOTE: For Stage 1 of the Popular Movies App, it is okay if the app does not restore the data using 
+onSaveInstanceState/onRestoreInstanceState)
+
 ### Problems faced:
 
 1. When scroll down the list, it goes a bit slow but ok, but when goes up, it skips and jumps to the top. 
 
-*Solution:* Add these lines in the MoviesActivity:
+**Solution:** Add these lines in the MoviesActivity:
 
 ```java
     recyclerView.setHasFixedSize(true);
@@ -39,7 +72,7 @@ Your app will:
     recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 ```
 
-and if you are using Picasso add these lines:
+and if you are using Picasso and still have these issues, add the commented lines:
 
 ```java
     Picasso.with(context)
@@ -48,3 +81,22 @@ and if you are using Picasso add these lines:
             // .resize().centerCrop() // this is optional in case needs improvement
             .into(imageView);
 ```
+
+2. Back button on the Action bar in the Settings menu wasn't refreshing with the new list when settings changed
+
+**Solution:** Remove `android:launchMode="singleTop"` from MainActivity section in the AndroidManifest.xml 
+
+3. Add back button to a Action bar:
+
+**Solution:** Add these lines inside of your child Activity:
+```xml
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.brunogtavares.popmovies.MoviesActivity"/>
+```
+
+4. Extra space on the right of the each poster when displaying the movie grid list:
+
+**Solution** make sure the FrameLayout that wraps the ImageView related to poster has the margin
+and padding set to 0
+

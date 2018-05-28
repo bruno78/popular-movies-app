@@ -8,25 +8,17 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.brunogtavares.popmovies.model.Movie;
 
@@ -54,19 +46,19 @@ public class MoviesActivity extends AppCompatActivity
 
 
         // Find the reference to the ListView in the layout
-        mRecyclerView = (RecyclerView) findViewById(R.id.rv_movie_list);
+        mRecyclerView = findViewById(R.id.rv_movie_list);
 
         // Find the reference to the Error view layout
-        mErrorMessageDisplay = (TextView) findViewById(R.id.tv_empty_view);
+        mErrorMessageDisplay = findViewById(R.id.tv_empty_view);
 
         // Creating GridLayout to populate the movies as grid
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setHasFixedSize(true);
-        // This will help to cache the viewHolders
-        //mRecyclerView.setItemViewCacheSize(20);
-        //mRecyclerView.setDrawingCacheEnabled(true);
-        //mRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+        // This will help to cache the viewHolders and improve scrolling performance
+        mRecyclerView.setItemViewCacheSize(20);
+        mRecyclerView.setDrawingCacheEnabled(true);
+        mRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
@@ -81,7 +73,7 @@ public class MoviesActivity extends AppCompatActivity
         mRecyclerView.setAdapter(mMovieAdapter);
 
         // Initialize the loading indicator
-        mLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loading_indicator);
+        mLoadingIndicator = findViewById(R.id.pb_loading_indicator);
 
         populateMovieList();
 

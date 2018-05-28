@@ -1,11 +1,8 @@
 package com.brunogtavares.popmovies.utils;
 
-import android.content.res.AssetManager;
-import android.content.res.Resources;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.brunogtavares.popmovies.R;
 import com.brunogtavares.popmovies.model.Movie;
 
 import org.json.JSONArray;
@@ -13,22 +10,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
-import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
 
 /**
  * Created by brunogtavares on 5/10/18.

@@ -6,7 +6,6 @@ import android.content.Context;
 import com.brunogtavares.popmovies.model.Movie;
 import com.brunogtavares.popmovies.utils.ThemoviedbApiUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
