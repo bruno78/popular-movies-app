@@ -1,6 +1,6 @@
 # Popular Movies App version 1.0
 
-<img src="https://cdn.rawgit.com/bruno78/popular-movies-app/5b33a0a7/screenshots/Screen%20Shot%202018-05-28%20at%2011.52.18%20AM.png" width="200"> ![](https://cdn.rawgit.com/bruno78/popular-movies-app/5b33a0a7/screenshots/Screen%20Shot%202018-05-28%20at%2011.51.41%20AM.png | width=200)
+<img src="https://cdn.rawgit.com/bruno78/popular-movies-app/5b33a0a7/screenshots/Screen%20Shot%202018-05-28%20at%2011.52.18%20AM.png" width="200"> <img src="https://cdn.rawgit.com/bruno78/popular-movies-app/5b33a0a7/screenshots/Screen%20Shot%202018-05-28%20at%2011.51.41%20AM.png" width="200">
 
 ## Project Summary
 
