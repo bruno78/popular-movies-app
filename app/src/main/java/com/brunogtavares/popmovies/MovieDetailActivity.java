@@ -31,10 +31,11 @@ public class MovieDetailActivity extends AppCompatActivity {
         mDateReleased = (TextView) findViewById(R.id.tv_date_released);
         mSinopsys = (TextView) findViewById(R.id.tv_synopsis);
 
+        setTitle(movie.getTitle());
         Picasso.with(this).load(movie.getBackDropPath()).into(mBackdrop);
         Picasso.with(this).load(movie.getPosterPath()).into(mPosterThumbnail);
         mMovieRating.setText(Double.toString(movie.getRating()) + "/10");
-        mDateReleased.setText(movie.getReleaseDate());
+        mDateReleased.setText(movie.getReleaseDate().replaceAll("-", " "));
         mSinopsys.setText(movie.getSynopsis());
 
     }

@@ -46,8 +46,6 @@ public class MoviesActivity extends AppCompatActivity
     private TextView mErrorMessageDisplay;
     private ProgressBar mLoadingIndicator;
 
-    private boolean isConnected;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,18 +57,18 @@ public class MoviesActivity extends AppCompatActivity
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_movie_list);
 
         // Find the reference to the Error view layout
-        mErrorMessageDisplay = findViewById(R.id.tv_empty_view);
+        mErrorMessageDisplay = (TextView) findViewById(R.id.tv_empty_view);
 
         // Creating GridLayout to populate the movies as grid
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setHasFixedSize(true);
         // This will help to cache the viewHolders
-        mRecyclerView.setItemViewCacheSize(20);
-        mRecyclerView.setDrawingCacheEnabled(true);
-        mRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
-        // mRecyclerView.setNestedScrollingEnabled(false);
-        // mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        //mRecyclerView.setItemViewCacheSize(20);
+        //mRecyclerView.setDrawingCacheEnabled(true);
+        //mRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+        mRecyclerView.setNestedScrollingEnabled(false);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         // Create a new adapter that takes an empty list of movies as input
         mMovieAdapter = new MovieAdapter( this);
@@ -89,12 +87,14 @@ public class MoviesActivity extends AppCompatActivity
 
     }
 
+    // Creates the menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
+    // Handles the options selected in the menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -106,6 +106,7 @@ public class MoviesActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    // Handles when user click on menu poster
     @Override
     public void onClick(Movie movie) {
         Intent intent = new Intent(this, MovieDetailActivity.class);
@@ -121,17 +122,16 @@ public class MoviesActivity extends AppCompatActivity
     }
 
     private void populateMovieList() {
-        View loadingIndicator = findViewById(R.id.pb_loading_indicator);
 
         // Before populating the list, check for the network status
-        isConnected = checkForNetworkStatus();
+        boolean isConnected = checkForNetworkStatus();
         // If it's connected it will call the load manager otherwise will display no connection message
         if (isConnected) {
             // Start Loader Manager
             getLoaderManager().initLoader(MOVIE_LOADER_ID, null, this);
         }
         else {
-            loadingIndicator.setVisibility(View.GONE);
+            mLoadingIndicator.setVisibility(View.GONE);
             // Update empty state with no connection error message
             mErrorMessageDisplay.setText(R.string.no_connection);
         }
@@ -144,14 +144,14 @@ public class MoviesActivity extends AppCompatActivity
         mRecyclerView.setAdapter(mMovieAdapter);
     }
 
-    private Uri.Builder createUri(String sort_by) {
+    private Uri.Builder createUri(String sortBy) {
 
         String apiKey = getString(R.string.movie_api_key);
 
         Uri baseUri = Uri.parse(MOVIES_REQUEST_URL);
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
-        uriBuilder.appendPath(sort_by);
+        uriBuilder.appendPath(sortBy);
         uriBuilder.appendQueryParameter("api_key", apiKey);
 
         return uriBuilder;
@@ -167,8 +167,6 @@ public class MoviesActivity extends AppCompatActivity
 
         Uri.Builder  uri = createUri(orderBy);
 
-        Log.i(LOG_TAG, uri.toString());
-
         return new MoviesLoader(this, uri.toString());
     }
 
@@ -176,15 +174,13 @@ public class MoviesActivity extends AppCompatActivity
     public void onLoadFinished(Loader<List<Movie>> loader, List<Movie> movies) {
 
         // set the invisibility of the Progress bar to invisible
-        View loadingIndicator = findViewById(R.id.pb_loading_indicator);
-        loadingIndicator.setVisibility(View.GONE);
+        mLoadingIndicator.setVisibility(View.GONE);
 
         // Clear the adapter from previous data
         resetAdapter();
 
         // If movies is not empty or null populate the adapter
         if(!movies.isEmpty() && movies != null) {
-            Log.i(LOG_TAG, String.valueOf(movies.size()));
             mMovieAdapter.setMovieList(movies);
             mRecyclerView.setAdapter(mMovieAdapter);
         }
@@ -192,7 +188,6 @@ public class MoviesActivity extends AppCompatActivity
             // Set empty state text to display "No earthquakes found."
             mErrorMessageDisplay.setText(R.string.no_movies);
         }
-
     }
 
     @Override

@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * Created by brunogtavares on 5/19/18.
- * Read about parcels: http://www.vogella.com/tutorials/AndroidParcelable/article.html
+ * Read about parcelable: http://www.vogella.com/tutorials/AndroidParcelable/article.html
  */
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
@@ -66,20 +66,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public void onBindViewHolder(MovieViewHolder holder, int position) {
         Movie movie = mMovieList.get(position);
 
-        Log.d(LOG_TAG, "We are here: # " + position + "\n" +
-            movie.getPosterPath() + "\n" +
-            movie.toString());
-
         Picasso.with(mContext)
-                // .fit() // this will fit the picture in the viewer
-                // .resize().centerCrop()
                 .load(movie.getPosterPath())
                 .into(holder.mMovieImageView);
     }
 
     @Override
     public int getItemCount() {
-        return (mMovieList.isEmpty() || mMovieList == null) ? 0 : mMovieList.size();
+        if(mMovieList.isEmpty() || mMovieList == null) return 0;
+        return mMovieList.size();
     }
 
     public void setMovieList(List<Movie> movieList) {
