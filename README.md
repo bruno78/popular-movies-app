@@ -1,8 +1,9 @@
 # Popular Movies App version 1.0
 
-<div style="text-align:center">
-    <img src="https://cdn.rawgit.com/bruno78/popular-movies-app/5b33a0a7/screenshots/Screen%20Shot%202018-05-28%20at%2011.52.18%20AM.png" width="200"> <img src="https://cdn.rawgit.com/bruno78/popular-movies-app/5b33a0a7/screenshots/Screen%20Shot%202018-05-28%20at%2011.51.41%20AM.png" width="200">
-</div>
+
+<div style="text-align:center"><img src="https://cdn.rawgit.com/bruno78/popular-movies-app/5b33a0a7/screenshots/Screen%20Shot%202018-05-28%20at%2011.52.18%20AM.png" width="200" alt="movie list image"> <img src="https://cdn.rawgit.com/bruno78/popular-movies-app/5b33a0a7/screenshots/Screen%20Shot%202018-05-28%20at%2011.51.41%20AM.png" width="200" alt="Movie detail"></div>
+
+
 ## Project Summary
 
 Most of us can relate to kicking back on the couch and enjoying a movie with friends and family.
@@ -10,6 +11,11 @@ In this project, you’ll build an app to allow users to discover the most popul
 
 
 You’ll build the complete functionality of this app in two stages which you will submit separately.
+
+## Instructions
+
+Download or clone this repo on your machine, open the project using Android Studio. Once Gradle builds
+the project, click "run" and choose an emulator.
 
 ## Stage 1:  Main Discovery Screen, A Details View, and Settings
 ### User Experience
