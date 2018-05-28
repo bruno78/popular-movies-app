@@ -1,7 +1,8 @@
 # Popular Movies App version 1.0
 
-<img src="https://cdn.rawgit.com/bruno78/popular-movies-app/5b33a0a7/screenshots/Screen%20Shot%202018-05-28%20at%2011.52.18%20AM.png" width="200"> <img src="https://cdn.rawgit.com/bruno78/popular-movies-app/5b33a0a7/screenshots/Screen%20Shot%202018-05-28%20at%2011.51.41%20AM.png" width="200">
-
+<div style="text-align:center">
+    <img src="https://cdn.rawgit.com/bruno78/popular-movies-app/5b33a0a7/screenshots/Screen%20Shot%202018-05-28%20at%2011.52.18%20AM.png" width="200"> <img src="https://cdn.rawgit.com/bruno78/popular-movies-app/5b33a0a7/screenshots/Screen%20Shot%202018-05-28%20at%2011.51.41%20AM.png" width="200">
+</div>
 ## Project Summary
 
 Most of us can relate to kicking back on the couch and enjoying a movie with friends and family.
@@ -93,6 +94,6 @@ and if you are using Picasso and still have these issues, add the commented line
 
 4. Extra space on the right of the each poster when displaying the movie grid list:
 
-**Solutio:n** make sure the FrameLayout that wraps the ImageView related to poster has the margin
-and padding set to 0
+**Solutio:** make sure the FrameLayout that wraps the ImageView related to poster has the margin
+and padding set to 0.
 
