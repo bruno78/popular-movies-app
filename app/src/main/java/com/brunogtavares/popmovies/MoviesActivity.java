@@ -108,6 +108,7 @@ public class MoviesActivity extends AppCompatActivity
 
     private boolean checkForNetworkStatus() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert cm != null;
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 
         return activeNetwork != null && activeNetwork.isConnected();
@@ -172,7 +173,7 @@ public class MoviesActivity extends AppCompatActivity
         resetAdapter();
 
         // If movies is not empty or null populate the adapter
-        if(!movies.isEmpty() && movies != null) {
+        if(!movies.isEmpty()) {
             mMovieAdapter.setMovieList(movies);
             mRecyclerView.setAdapter(mMovieAdapter);
         }
