@@ -100,6 +100,6 @@ and if you are using Picasso and still have these issues, add the commented line
 
 4. Extra space on the right of the each poster when displaying the movie grid list:
 
-**Solutio:** make sure the FrameLayout that wraps the ImageView related to poster has the margin
+**Solution:** make sure the FrameLayout that wraps the ImageView related to poster has the margin
 and padding set to 0.
 
