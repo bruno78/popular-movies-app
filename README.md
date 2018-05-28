@@ -1,4 +1,4 @@
-# Popular Movies App
+# Popular Movies App version 1.0
 
 ## Project Summary
 
